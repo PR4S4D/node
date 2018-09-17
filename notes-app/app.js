@@ -5,21 +5,28 @@ const _ = require("lodash");
 const yargs = require("yargs");
 
 const notes = require("./notes");
-console.log(process.argv);
 const argv = yargs.argv;
-console.log(argv);
 
 var command = process.argv[2];
 
 if (command === "add") {
-  console.log("Adding new note");
-  notes.addNote(argv.title, argv.body);
+  var note = notes.addNote(argv.title, argv.body);
+  note ? notes.log(note) : console.log("Note already exists!");
 } else if (command === "list") {
-  notes.getAll();
+  notes.getAll().map(note => notes.log(note));
 } else if (command === "remove") {
-  notes.remove(argv.title);
+  const title = argv.title;
+  var message = notes.remove(title)
+    ? `Note with title - ${title} has been removed`
+    : `Note with title - ${title} not found`;
+  console.log(message);
 } else if (command === "read") {
-  notes.read(argv.title);
+  var note = notes.read(argv.title);
+  if (note) {
+    notes.log(note);
+  } else {
+    console.log("Not found!");
+  }
 } else {
   console.log("Command not recognized");
 }
