@@ -1,6 +1,7 @@
 const express = require("express");
 const hbs = require("hbs");
 const fs = require("fs");
+const PORT = proces.env.PORT || 5000;
 
 var app = express();
 var maintainanceMode = false;
@@ -45,6 +46,6 @@ app.get("/bad", (req, res) => {
   });
 });
 
-app.listen(5000, () => {
-  console.log("Running on port 5000");
+app.listen(PORT, () => {
+  console.log("Running on port ",PORT);
 });
