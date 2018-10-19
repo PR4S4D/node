@@ -1,9 +1,11 @@
 const express = require("express");
 const hbs = require("hbs");
 const fs = require("fs");
-const PORT = proces.env.PORT || 5000;
+const PORT = process.env.PORT || 5000;
 
 var app = express();
+// views is the default directory that express uses for templates
+
 var maintainanceMode = false;
 hbs.registerPartials(__dirname + "/views/partials");
 app.set("view engine", "hbs");
@@ -39,6 +41,12 @@ app.get("/about", (req, res) => {
     pageTitle: "About page"
   });
 });
+
+app.get("/projects", (req, res) => {
+  res.render("projects.hbs", {
+    pageTitle: "Projects"
+  })
+})
 
 app.get("/bad", (req, res) => {
   res.send({
